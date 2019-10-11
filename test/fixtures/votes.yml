@@ -1,7 +1,6 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  ordered_candidate_last_names: MyText
-
-two:
-  ordered_candidate_last_names: MyText
+vote1:  {ordered_candidate_last_names: Heikler,Westry,Stokes,Cross,Crum}
+vote2:  {ordered_candidate_last_names: Cross,Heikler,Stokes,Crum,Westry}
+vote3:  {ordered_candidate_last_names: Westry,Stokes,Cross,Heikler,Crum}
+vote4:  {ordered_candidate_last_names: Crum,Westry,Cross,Heikler,Stokes}
+vote5:  {ordered_candidate_last_names: Westry,Stokes,Crum,Cross,Heikler}
+vote6:  {ordered_candidate_last_names: Stokes,Cross,Westry,Crum,Heikler}
