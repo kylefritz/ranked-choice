@@ -3,30 +3,22 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.0'
-# Use postgresql as the database for Active Record
+gem 'activeadmin' # admin ui
+gem 'bcrypt', '~> 3.1.7' # for devise
+gem 'bootsnap', '>= 1.4.2', require: false # Reduces boot times through caching; required in config/boot.rb
+gem 'bootstrap', '~> 4.3.1' # nice style
+gem 'devise' # for authentication
+gem 'image_processing', '~> 1.2' # Use Active Storage variant
+gem 'jbuilder', '~> 2.7' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'newrelic_rpm' # debugging to new relic
+gem 'paper_trail' # audits
 gem 'pg', '>= 0.18', '< 2.0'
-# Use Puma as the app server
-gem 'puma', '~> 3.11'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 4.0'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.7'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
-
-# Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'puma', '~> 3.11' # web/app server
+gem 'rails', '~> 6.0.0'
+gem 'sass-rails', '~> 5' # css
+gem 'sentry-raven' # debugging to sentry.io
+gem 'webpacker', '~> 4.0' # compiles javascript
+gem "olive_branch" # convert snake_case to camelCase for json
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
