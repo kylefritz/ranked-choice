@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+p1:
+  voted_by: a1
+  question: police
+  is_upvote: true
+
+p2:
+  voted_by: a2
+  question: police
+  is_upvote: true
+
+p3:
+  voted_by: a3
+  question: police
+  is_upvote: false
+
+b1:
+  voted_by: a1
+  question: benefits_district
+  is_upvote: false
