@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 2019_10_21_021632) do
     t.string "voted_by", null: false
     t.bigint "question_id", null: false
     t.boolean "is_upvote", null: false
-    t.boolean "is_hidden", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_question_votes_on_question_id"
@@ -49,6 +48,7 @@ ActiveRecord::Schema.define(version: 2019_10_21_021632) do
   create_table "questions", force: :cascade do |t|
     t.text "text", null: false
     t.text "submitted_by", null: false
+    t.boolean "is_hidden", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

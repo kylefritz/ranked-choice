@@ -2,7 +2,11 @@ police:
   text: Should we increase spending on police?
   submitted_by: Kyle
   
-
 benefits_district:
   text: Should we expand the benefits district east and south?
   submitted_by: Christina
+
+silly:
+  text: This is a silly question
+  submitted_by: Someone being silly
+  is_hidden: true
