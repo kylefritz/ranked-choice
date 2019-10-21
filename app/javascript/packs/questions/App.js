@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 import List from './List.js'
+import SubmitQuestion from './SubmitQuestion.js'
 
 export default class App extends React.Component {
 
@@ -18,8 +19,9 @@ export default class App extends React.Component {
     const { questions } = this.state || {};
     return (
       <div>
-        <h2 className="mt-5">Questions!</h2>
+        <h2>Questions</h2>
         <List questions={questions} />
+        <SubmitQuestion />
       </div>
     )
   }

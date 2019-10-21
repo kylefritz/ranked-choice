@@ -1,18 +1,18 @@
 import React from 'react'
 
+import Voting from './Voting.js'
+
 export default class Question extends React.Component {
   render() {
-    const { text, submittedBy, voteCount, upVoteCount, downVoteCount } = this.props.question
+    const { question } = this.props
+    const { text, submittedBy } = question
     return (
-      <section className="row">
+      <section className="row mt-5">
         <div className="col-10">
           <p className="lead">{text}</p>
           <div className="small" style={{ marginTop: '-16px', paddingBottom: '20px' }}>{submittedBy}</div>
         </div>
-        <div className="col" alt={`voteCount=${voteCount}`}>
-          <div><span className="oi oi-arrow-thick-top"></span> {upVoteCount}</div>
-          <div><span className="oi oi-arrow-thick-bottom"></span> {downVoteCount}</div>
-        </div>
+        <Voting question={question} />
       </section>
     )
   }
