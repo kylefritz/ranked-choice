@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2019_10_21_021632) do
 
   create_table "votes", force: :cascade do |t|
     t.text "ordered_candidate_last_names"
+    t.string "voted_by", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
