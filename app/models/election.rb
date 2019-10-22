@@ -1,38 +1,46 @@
 class Election
-  attr_reader :votes
   def initialize(votes)
     @votes = votes
   end
 
   def winner_take_all_results
-    vote_tally = empty_vote_tally()
-    vote_tally = update_vote_tally_for_votes(vote_tally, @votes)
+    vote_tally = update_vote_tally_for_votes(empty_vote_tally(), @votes)
     summarize_results(vote_tally)
   end
 
   def ranked_choice_results
-    round = 1
-    vote_tally = empty_vote_tally()
-    vote_tally = update_vote_tally_for_votes(vote_tally, @votes)
+    vote_tally = update_vote_tally_for_votes(empty_vote_tally(), @votes)
+    (1..(empty_vote_tally().keys.size + 2)).each do |round|
+      round_results = summarize_results(vote_tally)
+      Rails.logger.info "\nround=#{round} leader_has=#{leading_fraction(round_results)} #{round_results}"
 
-    loop do
-      results = summarize_results(vote_tally)
-      Rails.logger.warn "round=#{round} #{results}"
-
-      if winner_decided?(vote_tally)
-        return results.tap do |results|
-          winner = results.max_by {|k,v| v}.first
-          Rails.logger.warn "decided on #{winner}"
-        end
+      if winner_decided?(round_results)
+        winner = round_results.max_by {|k,v| v}.first
+        Rails.logger.info "decided on #{winner}\n\n"
+        return round_results
       end
-      Rails.logger.warn "not decided\n"
-      round += 1
+      Rails.logger.info "not decided"
       
-      vote_tally = instant_runoff(vote_tally, round)
-      if round > 10
-        throw "rounds #{round} too high "
-      end
+      vote_tally = instant_runoff(vote_tally, round_results)
     end
+    throw "round #{round} too high, wtf?"
+  end
+
+  def instant_runoff(vote_tally, round_results)
+    min_vote_count = round_results.values.min
+    Rails.logger.info "instant_runoff min_vote_count #{min_vote_count}"
+
+    last_place_candidates = round_results.select {|candidate, num_votes| num_votes == min_vote_count}.keys
+    if last_place_candidates.size > 1
+      Rails.logger.warn "more than 1 last_place_candidates=#{last_place_candidates}\n random pick to be eliminated"
+    end
+
+    srand 42 # set random seed for reproducibility
+    eliminated_candidate = last_place_candidates.sample
+    Rails.logger.info "eliminated_candidate=#{eliminated_candidate}"
+
+    ballots_for_next_choice = vote_tally.delete(eliminated_candidate)
+    update_vote_tally_for_votes(vote_tally, ballots_for_next_choice)
   end
 
   def empty_vote_tally
@@ -69,14 +77,13 @@ class Election
 
   def summarize_results(vote_tally)
     {}.tap do |summary|
-      vote_tally.each do |candidate_name, votes|
-        summary[candidate_name] = votes.size
+      vote_tally.each do |candidate_name, ballots|
+        summary[candidate_name] = ballots.size
       end
     end
   end
 
-  def leading_fraction(vote_tally)
-    vote_summary = summarize_results(vote_tally)
+  def leading_fraction(vote_summary)
     leading_votes = vote_summary.values.max
     votes_cast = vote_summary.values.sum
     Float(leading_votes) / votes_cast
@@ -84,21 +91,5 @@ class Election
 
   def winner_decided?(vote_summary)
     leading_fraction(vote_summary) > 0.5
-  end
-
-  def instant_runoff(vote_tally, round)
-    vote_summary = summarize_results(vote_tally)
-    min_vote_count = vote_summary.values.min
-    Rails.logger.warn "round #{round}: min_vote_count #{min_vote_count}"
-
-    last_place_candidates = vote_summary.select {|candidate, num_votes| num_votes == min_vote_count}.keys
-    Rails.logger.warn "last_place_candidates=#{last_place_candidates}"
-
-    srand 42 # set random seed for reproducibility
-    eliminated_candidate = last_place_candidates.sample
-    Rails.logger.warn "eliminated_candidate=#{eliminated_candidate}"
-
-    ballots_for_next_choice = vote_tally.delete(eliminated_candidate)
-    update_vote_tally_for_votes(vote_tally, ballots_for_next_choice)
   end
 end
