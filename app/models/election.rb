@@ -42,15 +42,27 @@ class Election
     vote_tally = candidate_names.zip(candidate_zeros).to_h
   end
 
-  def update_vote_tally_for_votes(vote_tally, votes)
-    # increment each candidate according to first choice
-    votes.each do |ranked_vote|
-      top_pick = ranked_vote[0]
-      if top_pick
-        vote_tally[top_pick].push(ranked_vote)
+  def update_vote_tally_for_votes(vote_tally, ballots)
+    vote_tally.tap do |vote_tally|
+      ballots.each do |b|
+        ballot = b.dup
+        while !ballot.empty? do
+          top_pick = ballot.shift()
+
+          if vote_tally.has_key?(top_pick)
+            # move ballots to candidate according to first choice
+            vote_tally[top_pick].push(ballot)
+            break
+          end
+          
+          if !ballot.empty?
+            Rails.logger.debug("pick_eliminated=#{top_pick} try=#{ballot[0]}")
+          else
+            Rails.logger.debug("no one i picked is still around")
+          end
+        end
       end
     end
-    vote_tally
   end
 
   def summarize_results(vote_tally)
