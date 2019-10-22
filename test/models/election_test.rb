@@ -14,7 +14,41 @@ class ElectionTest < ActiveSupport::TestCase
     the_votes = votes().map(&:candidate_preference)
     assert_equal the_votes.size, 11
 
-    results = Election.new(the_votes).ranked_choice_results
+    results, tallys_by_round = Election.new(the_votes).ranked_choice_results
     assert_equal({"Stokes"=>4, "Westry"=>7}, results)
+    assert_equal 4, tallys_by_round.size
+  end
+
+  test "2016 primary" do
+    votes = []
+    200.times do
+      votes.push(%w(Crum Cross Stokes))
+    end
+    999.times do
+      votes.push(%w(Stokes Crum Cross))
+    end
+    800.times do
+      votes.push(%w(Cross Stokes Crum))
+    end
+    results, tallys_by_round = Election.new(votes).ranked_choice_results
+    assert_equal({"Cross"=>1000, "Stokes"=>999}, results)
+    assert_equal 2, tallys_by_round.size
+  end
+
+  test "2 tied candidates" do
+    votes = []
+
+    votes.push(%w(Crum Cross Stokes))
+    votes.push(%w(Crum Stokes Cross))
+
+    9.times do
+      votes.push(%w(Stokes Crum Cross))
+    end
+    9.times do
+      votes.push(%w(Cross Stokes Crum))
+    end
+    results, tallys_by_round = Election.new(votes).ranked_choice_results
+    assert_equal({"Cross"=>10, "Stokes"=>10}, results)
+    assert_equal 2, tallys_by_round.size
   end
 end
