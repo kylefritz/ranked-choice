@@ -25,7 +25,7 @@ class Election
           Rails.logger.warn "decided on #{winner}"
         end
       end
-      Rails.logger.warn "not decided; going to next."
+      Rails.logger.warn "not decided\n"
       round += 1
       
       vote_tally = instant_runoff(vote_tally, round)
@@ -46,19 +46,21 @@ class Election
     vote_tally.tap do |vote_tally|
       ballots.each do |b|
         ballot = b.dup
+        original_top = ballot[0]
         while !ballot.empty? do
-          top_pick = ballot.shift()
+          pick = ballot.shift()
 
-          if vote_tally.has_key?(top_pick)
+          if vote_tally.has_key?(pick)
             # move ballots to candidate according to first choice
-            vote_tally[top_pick].push(ballot)
+            vote_tally[pick].push(ballot)
+            if original_top != pick
+              Rails.logger.info "moved from #{original_top} to #{pick}"
+            end
             break
           end
           
-          if !ballot.empty?
-            Rails.logger.debug("pick_eliminated=#{top_pick} try=#{ballot[0]}")
-          else
-            Rails.logger.debug("no one i picked is still around")
+          if ballot.empty?
+            Rails.logger.info "no picks left"
           end
         end
       end
@@ -88,26 +90,15 @@ class Election
     vote_summary = summarize_results(vote_tally)
     min_vote_count = vote_summary.values.min
     Rails.logger.warn "round #{round}: min_vote_count #{min_vote_count}"
-    
-    num_candidates_eliminated = 0
-    ballots_for_next_choice = []
-    vote_tally.each do |candidate, ballots|
-      if ballots.size == min_vote_count
-        num_candidates_eliminated += 1
-        ballots.each do |ballot|
-          ballot.shift() # this candidate has been eliminated
-          ballots_for_next_choice.push(ballot)
-        end
-        vote_tally.delete(candidate)
-        Rails.logger.warn "round #{round}: eliminated #{candidate}"
-      end
-    end
 
-    Rails.logger.warn "round #{round}: candidates_eliminated=#{num_candidates_eliminated}"
-    num_ballots_for_next_choice = ballots_for_next_choice.size / num_candidates_eliminated
+    last_place_candidates = vote_summary.select {|candidate, num_votes| num_votes == min_vote_count}.keys
+    Rails.logger.warn "last_place_candidates=#{last_place_candidates}"
+
     srand 42 # set random seed for reproducibility
-    selected_ballots_for_next_choice = ballots_for_next_choice.sample(num_ballots_for_next_choice)
-    
-    update_vote_tally_for_votes(vote_tally, selected_ballots_for_next_choice)
+    eliminated_candidate = last_place_candidates.sample
+    Rails.logger.warn "eliminated_candidate=#{eliminated_candidate}"
+
+    ballots_for_next_choice = vote_tally.delete(eliminated_candidate)
+    update_vote_tally_for_votes(vote_tally, ballots_for_next_choice)
   end
 end
