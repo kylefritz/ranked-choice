@@ -1,3 +1,5 @@
+# random votes created with
+# lib/tasks/fixtures.rake
 vote0:
   ordered_candidate_last_names: Westry,Stokes,Heikler,Crum,Cross
   voted_by: voter0
