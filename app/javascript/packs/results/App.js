@@ -40,7 +40,7 @@ export default class App extends React.Component {
           <h3 className="col">Results</h3>
           <div className="col align-middle text-right">
             <small>votes cast: {totalVotes} <br />
-              <span class="oi oi-bolt text-success"></span> live
+              <span className="oi oi-bolt text-success"></span> live
             </small>
 
           </div>
@@ -74,6 +74,9 @@ export default class App extends React.Component {
             </div>
           )
         })}
+        <hr />
+        <p>The real Baltimore City Primary is April 28, 2020.</p>
+        <p>Early voting is April 16 to April 23.</p>
       </div >
     )
   }
