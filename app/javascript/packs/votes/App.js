@@ -44,13 +44,35 @@ export default class App extends React.Component {
     }
   }
 
+  shouldSubmitBallot() {
+    const num = this.rankedCandidates().length
+    if (num == 0) {
+      window.alert("Please rank candidates by tapping on their names.")
+      return false
+    }
+    const text = () => {
+      const numCandidates = this.state.candidates.length;
+      if (num == 1) {
+        return "You can ranked more than 1 candidate. Submit ballot anyway?"
+      }
+      if (num < numCandidates) {
+        return "You have not ranked all the candidates. Submit ballot anyway?"
+      }
+      return "Submit ballot?"
+    }
+    return window.confirm(text())
+  }
+
+  rankedCandidates() {
+    let { ballot } = this.state
+    const ranked = Object.values(ballot).filter(({ rank }) => !!rank)
+    return _.sortBy(ranked, ({ rank }) => rank).map(({ lastName }) => lastName)
+  }
+
   handleSubmit() {
-    const submit = window.confirm("Submit ballot?")
-    if (submit) {
-      let { ballot } = this.state
-      const rankedCandidates = Object.values(ballot).filter(({ rank }) => !!rank)
-      const rankedVote = _.sortBy(rankedCandidates, ({ rank }) => rank).map(({ lastName }) => lastName)
-      console.log("rankedVote", rankedVote)
+    if (this.shouldSubmitBallot()) {
+      const ranked = this.rankedCandidates()
+      console.log("rankedVote", ranked)
     }
   }
 
