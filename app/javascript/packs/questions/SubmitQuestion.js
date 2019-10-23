@@ -32,8 +32,8 @@ export default class SubmitQuestion extends React.Component {
           <label htmlFor="sq-submitted-by">Your Name</label>
           <input type="text" className="form-control" id="sq-submitted-by" placeholder="What's your name?" ref={this.refName} />
         </div>
-        <button type="submit" class="btn btn-primary">Submit Question</button>
-      </form>
+        <button type="submit" className="btn btn-primary">Submit Question</button>
+      </form >
     )
   }
 }

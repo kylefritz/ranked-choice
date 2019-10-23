@@ -42,14 +42,14 @@ export default class Voting extends React.Component {
 
     return (
       <div className="col" alt={`voteCount=${voteCount}`}>
-        <button type="button" class="btn btn-outline-primary" onClick={this.handleUpVote.bind(this)}>
+        <button type="button" className="btn btn-outline-primary" onClick={this.handleUpVote.bind(this)}>
           <span className="oi oi-arrow-thick-top"></span> {upVoteCount}
         </button>
         <br />
-        <button type="button" class="btn btn-outline-primary mt-2" onClick={this.handleDownVote.bind(this)}>
+        <button type="button" className="btn btn-outline-primary mt-2" onClick={this.handleDownVote.bind(this)} >
           <span className="oi oi-arrow-thick-bottom"></span> {downVoteCount}
-        </button>
-      </div>
+        </button >
+      </div >
     )
   }
 }

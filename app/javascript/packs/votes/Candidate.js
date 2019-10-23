@@ -2,12 +2,24 @@ import React from 'react'
 import axios from 'axios'
 
 
-export default function candidate({ firstName, lastName }) {
+export default function candidate({ firstName, lastName, rank, onRank }) {
+  const canRank = !rank
+  const handleClick = (event) => {
+    if (canRank) {
+      onRank(lastName)
+    }
+  }
+
   return (
     <div className="row mt-3">
-      <div className="col-2"></div>
+      <div className="col-2">
+        <h2 className="align-middle" style={{ textAlign: 'center' }}>{rank}</h2>
+      </div>
       <div className="col-10">
-        <button type="button" class="btn btn-primary btn-lg btn-block">
+        <button type="button"
+          className="btn btn-primary btn-lg btn-block"
+          disabled={!canRank}
+          onClick={handleClick}>
           {firstName} {lastName}
         </button>
       </div>
