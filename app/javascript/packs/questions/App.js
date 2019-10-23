@@ -3,8 +3,13 @@ import axios from 'axios'
 
 import List from './List.js'
 import SubmitQuestion from './SubmitQuestion.js'
+import UserContext from './UserContext'
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { isAdmin: false }
+  }
 
   componentDidMount() {
     this.loadQuestions()
@@ -16,7 +21,7 @@ export default class App extends React.Component {
   }
 
   loadQuestions() {
-    axios.get('/questions.json').then(({ data: questions }) => {
+    return axios.get('/questions.json').then(({ data: questions }) => {
       console.log(questions)
       this.setState({ questions })
     }).catch((err) => {
@@ -24,33 +29,49 @@ export default class App extends React.Component {
     })
   }
 
-  handleAsk(question) {
-    return axios.post(`/questions.json`, question).then(({ data: questions }) => {
-      console.log(questions)
-      this.setState({ questions })
-    })
+  async handleAsk(question) {
+    const { data: questions } = await axios.post(`/questions.json`, question)
+    console.log(questions)
+    this.setState({ questions })
   }
 
-  handleVote(questionId, up) {
-    return axios.post(`/questions/${questionId}/vote.json`, { up }).then(({ data: questions }) => {
-      console.log(questions)
-      this.setState({ questions })
-    })
+  async handleVote(questionId, up) {
+    const { data: questions } = await axios.post(`/questions/${questionId}/vote.json`, { up })
+    console.log(questions)
+    this.setState({ questions })
+  }
+
+  async handleDismiss(questionId) {
+    const { data: questions } = await axios.post(`/questions/${questionId}/dismiss.json`)
+    console.log(questions)
+    this.setState({ questions })
+  }
+
+  handleToggleContext() {
+    this.setState({ isAdmin: !this.state.isAdmin })
   }
 
   render() {
-    const { questions } = this.state || {};
+    const { questions, isAdmin } = this.state || {};
     return (
-      <div>
-        <div className="row">
-          <h2 className="col">Questions</h2>
-          <div className="col align-middle text-right mr-4 mt-2"><span className="oi oi-bolt text-success"></span> live</div>
-        </div>
-        <p><span className="oi oi-arrow-thick-top"></span> Up or <span className="oi oi-arrow-thick-bottom"></span> down vote submitted questions. Or submit your own.</p>
+      <UserContext.Provider value={isAdmin}>
+        <div>
+          <button type="button" className="btn btn-outline-primary" onClick={this.handleToggleContext.bind(this)}>
+            toggle context
+            </button>
+          <div className="row">
+            <h2 className="col">Questions</h2>
+            <div className="col align-middle text-right mr-4 mt-2"><span className="oi oi-bolt text-success"></span> live</div>
+          </div>
+          {!isAdmin && <p><span className="oi oi-arrow-thick-top"></span> Up or <span className="oi oi-arrow-thick-bottom"></span> down vote submitted questions. Or submit your own.</p>}
 
-        <List questions={questions} onVote={this.handleVote.bind(this)} />
-        <SubmitQuestion onAsk={this.handleAsk.bind(this)} />
-      </div>
+          <List
+            questions={questions}
+            onVote={this.handleVote.bind(this)}
+            onDismiss={this.handleDismiss.bind(this)} />
+          <SubmitQuestion onAsk={this.handleAsk.bind(this)} />
+        </div>
+      </UserContext.Provider>
     )
   }
 }

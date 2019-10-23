@@ -1,10 +1,11 @@
 import React from 'react'
 
 import Voting from './Voting.js'
+import UserContext from './UserContext'
 
 export default class Question extends React.Component {
   render() {
-    const { question, onVote } = this.props
+    const { question, onVote, onDismiss } = this.props
     const { text, submittedBy } = question
     return (
       <section className="row mt-5">
@@ -12,7 +13,10 @@ export default class Question extends React.Component {
           <p className="lead">{text}</p>
           <div className="small" style={{ marginTop: '-16px', paddingBottom: '20px' }}>{submittedBy}</div>
         </div>
-        <Voting question={question} onVote={onVote} />
+        <UserContext.Consumer>
+          {isAdmin => (<Voting {...{ question, onVote, isAdmin, onDismiss }} />)}
+        </UserContext.Consumer>
+
       </section>
     )
   }
