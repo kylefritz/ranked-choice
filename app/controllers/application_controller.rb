@@ -3,24 +3,10 @@ class ApplicationController < ActionController::Base
 
   before_action :set_paper_trail_whodunnit # calls user_for_paper_trail
   before_action :set_raven_context
-  before_action :set_voted_by
 
   def set_raven_context
     Raven.user_context(id: current_user&.id, email: current_user&.email, is_admin: current_user&.is_admin)
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
-  end
-
-  def voted_by
-    # used to limit one vote per user
-    # obviously can be foiled with an incognito browser window
-    cookies.permanent[:voted_by]
-  end
-
-  def set_voted_by
-    unless voted_by
-      cookies.permanent[:voted_by] = SecureRandom.hex(10)
-      logger.info "setting voted_by to #{voted_by}"
-    end
   end
 
   def user_for_paper_trail

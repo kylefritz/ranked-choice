@@ -3,6 +3,7 @@ import axios from 'axios'
 import * as _ from 'lodash'
 
 import Candidate from './Candidate'
+import Voted from './Voted'
 
 const createBallot = (candidates) => Object.fromEntries(candidates.map(({ firstName, lastName }) => {
   const candidateEntry = { firstName, lastName, rank: null }
@@ -12,18 +13,26 @@ const createBallot = (candidates) => Object.fromEntries(candidates.map(({ firstN
 export default class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = { loading: true }
   }
 
   componentDidMount() {
-    axios.get('/candidates.json').then(({ data: candidates }) => {
+    Promise.allSettled([
+      // load candidates
+      axios.get('/candidates.json').then(({ data: candidates }) => {
 
-      const ballot = createBallot(candidates)
-      this.setState({ candidates })
-      this.resetBallot()
-    }).catch((err) => {
-      throw "couldn't get questions"
-    })
+        const ballot = createBallot(candidates)
+        this.setState({ candidates })
+        this.resetBallot()
+      }).catch((err) => {
+        throw "couldn't get questions"
+      }),
+
+      // see if this person has already voted, if so they'll redirect to a confirmation page
+      axios.get('/votes.json').then(({ data: vote }) => {
+        this.setState({ vote })
+      })
+    ]).then(() => this.setState({ loading: false }))
   }
   resetBallot() {
     this.setState({ ballot: createBallot(this.state.candidates), nextRank: 1 })
@@ -45,6 +54,12 @@ export default class App extends React.Component {
   }
 
   shouldSubmitBallot() {
+    const { submitting } = this.state;
+    if (submitting) {
+      console.warn("ballot is already submitting. chill.")
+      return false;
+    }
+
     const num = this.rankedCandidates().length
     if (num == 0) {
       window.alert("Please rank candidates by tapping on their names.")
@@ -70,16 +85,35 @@ export default class App extends React.Component {
   }
 
   handleSubmit() {
-    if (this.shouldSubmitBallot()) {
-      const ranked = this.rankedCandidates()
-      console.log("rankedVote", ranked)
+    if (!this.shouldSubmitBallot()) {
+      return;
     }
+
+    const vote = this.rankedCandidates()
+    console.log("submitting vote", vote)
+    this.setState({ submitting: true })
+
+    axios.post('/votes.json', { vote }).then(({ data: vote }) => {
+      console.info("ballot submitted", vote)
+      this.setState({ vote })
+    }).catch(err => {
+      console.error("Error submitting ballot", err)
+      alert("Error submitting ballot. Try again.")
+    }).finally(() => {
+      this.setState({ submitting: false })
+    })
   }
 
   render() {
-    const { ballot } = this.state || {};
+    const { ballot, vote, loading } = this.state || {};
+    if (loading) {
+      return <h5>Loading...</h5>
+    }
+    if (vote) {
+      return <Voted vote={vote} />
+    }
     if (!ballot) {
-      return <h5>Loading</h5>
+      return <h5>Can't load ballot :(</h5>
     }
     return (
       <div>
