@@ -5,11 +5,16 @@ import _ from 'lodash'
 export default class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { loading: true }
+    this.state = { loaded: false }
   }
 
   componentDidMount() {
     this.loadResults()
+    this.timer = setInterval(() => this.loadResults(), 10 * 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer)
   }
 
   loadResults() {
@@ -17,12 +22,12 @@ export default class App extends React.Component {
       this.setState({ rounds })
     }).catch((err) => {
       throw "couldn't get results"
-    }).finally(() => this.setState({ loading: false }))
+    }).finally(() => this.setState({ loaded: true }))
   }
 
   render() {
-    const { rounds, loading } = this.state || {};
-    if (loading) {
+    const { rounds, loaded } = this.state || {};
+    if (!loaded) {
       return <h5>Loading...</h5>
     }
     if (!rounds.length) {
@@ -34,7 +39,10 @@ export default class App extends React.Component {
         <div className="row">
           <h3 className="col">Results</h3>
           <div className="col align-middle text-right">
-            <small>votes cast: {totalVotes}</small>
+            <small>votes cast: {totalVotes} <br />
+              <span class="oi oi-bolt text-success"></span> live
+            </small>
+
           </div>
         </div>
 
