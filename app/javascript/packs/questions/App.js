@@ -46,6 +46,7 @@ export default class App extends React.Component {
           <h2 className="col">Questions</h2>
           <div className="col align-middle text-right mr-4 mt-2"><span className="oi oi-bolt text-success"></span> live</div>
         </div>
+        <p><span className="oi oi-arrow-thick-top"></span> Up or <span className="oi oi-arrow-thick-bottom"></span> down vote submitted questions. Or submit your own.</p>
 
         <List questions={questions} onVote={this.handleVote.bind(this)} />
         <SubmitQuestion onAsk={this.handleAsk.bind(this)} />
