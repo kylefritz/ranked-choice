@@ -13,12 +13,38 @@
 
   <body>
     <div class="container">
-      <p class="lead">
-        <a href="/">
-          Baltimore City Council 12th District <strong>Forum</strong>
+      
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">
+          Baltimore City Council 12th District Forum
         </a>
-      </p>
-      <hr/>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/questions">
+                Questions
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/votes">
+                Vote in straw-poll
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/results">
+                Straw-poll results
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+
+
       <% if notice%>
         <p class="notice"><%= notice %></p>
       <% end%>
