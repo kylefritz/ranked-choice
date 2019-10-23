@@ -11,14 +11,15 @@ gem 'devise' # for authentication
 gem 'image_processing', '~> 1.2' # Use Active Storage variant
 gem 'jbuilder', '~> 2.7' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'newrelic_rpm' # debugging to new relic
+gem 'olive_branch' # convert snake_case to camelCase for json
 gem 'paper_trail' # audits
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11' # web/app server
+gem 'rails-settings-cached', "~> 2.0" # app settings stored in database
 gem 'rails', '~> 6.0.0'
 gem 'sass-rails', '~> 5' # css
 gem 'sentry-raven' # debugging to sentry.io
 gem 'webpacker', '~> 4.0' # compiles javascript
-gem "olive_branch" # convert snake_case to camelCase for json
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
