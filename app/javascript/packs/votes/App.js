@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import * as _ from 'lodash'
+import _ from 'lodash'
 
 import Candidate from './Candidate'
 import Voted from './Voted'
@@ -34,6 +34,7 @@ export default class App extends React.Component {
       })
     ]).then(() => this.setState({ loading: false }))
   }
+
   resetBallot() {
     this.setState({ ballot: createBallot(this.state.candidates), nextRank: 1 })
   }

@@ -7,7 +7,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('from webpack')
   const jsx = (<ErrorBoundary><App /></ErrorBoundary>)
   ReactDOM.render(
     jsx,

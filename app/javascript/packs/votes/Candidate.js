@@ -13,7 +13,7 @@ export default function candidate({ firstName, lastName, rank, onRank }) {
   return (
     <div className="row mt-3">
       <div className="col-2">
-        <h2 className="align-middle" style={{ textAlign: 'center' }}>{rank}</h2>
+        <h2 className="align-middle text-center">{rank}</h2>
       </div>
       <div className="col-10">
         <button type="button"

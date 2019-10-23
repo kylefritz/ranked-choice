@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   resources :candidates
   resources :questions
   resources :votes
+  resources :results
 end
