@@ -7,6 +7,15 @@ import SubmitQuestion from './SubmitQuestion.js'
 export default class App extends React.Component {
 
   componentDidMount() {
+    this.loadQuestions()
+    this.timer = setInterval(() => this.loadQuestions(), 30 * 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer)
+  }
+
+  loadQuestions() {
     axios.get('/questions.json').then(({ data: questions }) => {
       console.log(questions)
       this.setState({ questions })
@@ -33,7 +42,11 @@ export default class App extends React.Component {
     const { questions } = this.state || {};
     return (
       <div>
-        <h2>Questions</h2>
+        <div className="row">
+          <h2 className="col">Questions</h2>
+          <div className="col align-middle text-right mr-4 mt-2"><span className="oi oi-bolt text-success"></span> live</div>
+        </div>
+
         <List questions={questions} onVote={this.handleVote.bind(this)} />
         <SubmitQuestion onAsk={this.handleAsk.bind(this)} />
       </div>
