@@ -6,21 +6,57 @@ export default class SubmitQuestion extends React.Component {
     super(props)
     this.refText = React.createRef();
     this.refName = React.createRef();
+    this.state = { justAsked: false };
   }
+
   handleSubmit(event) {
     event.preventDefault();
 
     const text = this.refText.current.value;
-    const submittedBy = this.refName.current.value;
+    const author = this.refName.current.value;
 
-    axios.post(`/questions.json`, { text, submittedBy }).then(({ data }) => {
-      console.log(data)
-    }).catch((err) => {
-      throw "couldn't submit question"
+    if (!text) {
+      alert("You forgot to include the question")
+      return
+    }
+
+    if (!author) {
+      alert("Include your name")
+      return
+    }
+
+    this.props.onAskQuestion({ text, author }).then(() => {
+      // clear form
+      this.refText.current.value = ""
+      this.refName.current.value = ""
+
+      // hide form for a little so people know we took care of it
+      this.setState({ justAsked: true })
+      setTimeout(() => this.showForm(), 10 * 1000);
+    }).catch(err => {
+      console.error("Error submitting question", err)
+      this.showForm()
+      alert("Error submitting question. Try again.")
     })
   }
 
+  showForm() {
+    this.setState({ justAsked: false })
+  }
+
   render() {
+    const { justAsked } = this.state;
+    if (justAsked) {
+      return (
+        <div>
+          <h4>Question submitted!</h4>
+          <br />
+          <p><button onClick={() => this.showForm()} className="btn btn-primary">Ask another</button></p>
+          <br />
+          <br />
+        </div>
+      )
+    }
     return (
       <form className="mt-5" onSubmit={this.handleSubmit.bind(this)}>
         <h3>Ask a new question</h3>

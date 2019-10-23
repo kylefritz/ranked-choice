@@ -1,4 +1,5 @@
 json.array! @questions do |q|
+  json.id q.id
   json.text q.text
   json.submitted_by q.submitted_by
   json.up_vote_count q.up_vote_count

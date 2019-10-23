@@ -15,13 +15,20 @@ export default class App extends React.Component {
     })
   }
 
+  handleAskQuestion(question) {
+    return axios.post(`/questions.json`, question).then(({ data: questions }) => {
+      console.log(questions)
+      this.setState({ questions })
+    })
+  }
+
   render() {
     const { questions } = this.state || {};
     return (
       <div>
         <h2>Questions</h2>
         <List questions={questions} />
-        <SubmitQuestion />
+        <SubmitQuestion onAskQuestion={this.handleAskQuestion.bind(this)} />
       </div>
     )
   }
