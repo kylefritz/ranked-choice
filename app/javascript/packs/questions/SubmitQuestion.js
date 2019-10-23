@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 
 export default class SubmitQuestion extends React.Component {
   constructor(props) {
@@ -25,7 +24,7 @@ export default class SubmitQuestion extends React.Component {
       return
     }
 
-    this.props.onAskQuestion({ text, author }).then(() => {
+    this.props.onAsk({ text, author }).then(() => {
       // clear form
       this.refText.current.value = ""
       this.refName.current.value = ""

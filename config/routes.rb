@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   root to: "home#show"
 
   resources :candidates
-  resources :questions
+  resources :questions do
+    post 'vote', on: :member
+  end
   resources :votes
   resources :results
 end

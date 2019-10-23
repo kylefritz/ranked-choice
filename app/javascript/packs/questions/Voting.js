@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 
 export default class Voting extends React.Component {
   constructor(props) {
@@ -7,22 +6,21 @@ export default class Voting extends React.Component {
     this.state = { canVote: true }
   }
 
-  handleVote(vote) {
+  handleVote(up) {
     const { id: questionId } = this.props.question
-    this.setState({ canVote: false }) // TODO: fix
-    axios.post(`/questions/${questionId}.json`, { vote }).then(({ data }) => {
-      console.log(data)
-    }).catch((err) => {
-      throw "couldn't vote"
+    this.setState({ canVote: false }) // TODO: better canVote lock-out
+    this.props.onVote(questionId, up).catch((err) => {
+      console.error("couldn't vote on", questionId, 'up=', up)
+      alert("couldn't vote")
     })
   }
 
   handleUpVote() {
-    this.handleVote(+1)
+    this.handleVote(true)
   }
 
   handleDownVote() {
-    this.handleVote(-1)
+    this.handleVote(false)
   }
 
   render() {

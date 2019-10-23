@@ -15,8 +15,15 @@ export default class App extends React.Component {
     })
   }
 
-  handleAskQuestion(question) {
+  handleAsk(question) {
     return axios.post(`/questions.json`, question).then(({ data: questions }) => {
+      console.log(questions)
+      this.setState({ questions })
+    })
+  }
+
+  handleVote(questionId, up) {
+    return axios.post(`/questions/${questionId}/vote.json`, { up }).then(({ data: questions }) => {
       console.log(questions)
       this.setState({ questions })
     })
@@ -27,8 +34,8 @@ export default class App extends React.Component {
     return (
       <div>
         <h2>Questions</h2>
-        <List questions={questions} />
-        <SubmitQuestion onAskQuestion={this.handleAskQuestion.bind(this)} />
+        <List questions={questions} onVote={this.handleVote.bind(this)} />
+        <SubmitQuestion onAsk={this.handleAsk.bind(this)} />
       </div>
     )
   }
