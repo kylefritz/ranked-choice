@@ -51,4 +51,9 @@ class ElectionTest < ActiveSupport::TestCase
     assert_equal({"Cross"=>10, "Stokes"=>10}, results)
     assert_equal 2, tallys_by_round.size
   end
+
+  test "no votes" do
+    Election.new([]).ranked_choice_results
+    Election.new([]).winner_take_all_results
+  end
 end

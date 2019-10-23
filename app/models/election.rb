@@ -9,6 +9,10 @@ class Election
   end
 
   def ranked_choice_results
+    if @votes.empty?
+      Rails.logger.info "no votes??"
+      return [{}, []]
+    end
     vote_tally = update_vote_tally_for_votes(empty_vote_tally(), @votes)
     vote_tallys_by_round = []
 
