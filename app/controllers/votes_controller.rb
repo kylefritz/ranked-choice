@@ -1,5 +1,7 @@
 class VotesController < ApplicationController
   before_action :set_vote
+  before_action :redirect_if_voting_disabled, only: [:create]
+
   def index
     respond_to do |format|
       format.html # index.html.erb
@@ -41,5 +43,12 @@ class VotesController < ApplicationController
   def set_voted_by!
     cookies.permanent[:voted_by] = SecureRandom.hex(10)
     logger.info "setting voted_by to #{voted_by}"
+  end
+
+  def redirect_if_voting_disabled
+    unless Setting.voting_enabled
+      logger.warn "Setting.voting_enabled; ignoring request"
+      render json: nil
+    end
   end
 end

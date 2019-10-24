@@ -13,4 +13,12 @@ Rails.application.routes.draw do
   end
   resources :votes
   resources :results
+
+  resources 'settings' do
+    collection do
+      post 'questions'
+      post 'voting'
+      post 'results'
+    end
+  end
 end

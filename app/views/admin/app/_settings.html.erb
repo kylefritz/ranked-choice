@@ -1,0 +1,23 @@
+<table style="width: 400px">
+  <tr>
+    <td><strong>Questions enabled</strong></td>
+    <td><%= Setting.questions_enabled %></td>
+  </tr>
+    <tr>
+    <td><strong>Voting enabled</strong></td>
+    <td><%= Setting.voting_enabled %></td>
+  </tr>
+    <tr>
+    <td><strong>Results enabled</strong></td>
+    <td><%= Setting.results_enabled %></td>
+  </tr>
+</table>
+<br/>
+<table style="width: 400px">
+  <tr>
+    <td><%= button_to("Questions Mode", '/settings/questions') %></td>
+    <td><%= button_to("Voting Mode", '/settings/voting') %></td>
+    <td><%= button_to("Results Mode", '/settings/results') %></td>
+  </tr>
+</table>
+

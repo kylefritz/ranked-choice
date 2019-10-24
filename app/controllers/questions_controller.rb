@@ -62,13 +62,12 @@ class QuestionsController < ApplicationController
 
   def set_vars_for_jbuilder
     @is_admin = !!current_user&.is_admin?
-    @is_enabled = Setting.questions_enabled
   end
 
   def redirect_if_questions_disabled
     unless Setting.questions_enabled
       logger.warn "Setting.questions_disabled; ignoring request"
       return render_all_questions
-    end 
+    end
   end
 end

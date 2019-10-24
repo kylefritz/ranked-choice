@@ -26,10 +26,6 @@ export default class App extends React.Component {
       throw "couldn't get questions"
     })
   }
-  updateAppState({ data: { questions, isAdmin, isEnabled } }) {
-    console.log(questions, isAdmin)
-    this.setState({ questions, isAdmin, isEnabled })
-  }
 
   async handleAsk(question) {
     this.updateAppState(await axios.post(`/questions.json`, question))
@@ -43,10 +39,32 @@ export default class App extends React.Component {
     this.updateAppState(await axios.post(`/questions/${questionId}/dismiss.json`))
   }
 
+  updateAppState({ data }) {
+    console.log(data)
+    this.setState(data)
+  }
+
   render() {
-    const { questions, isAdmin, isEnabled } = this.state;
+    const { questions, isAdmin, isEnabled, resultsEnabled, votingEnabled } = this.state;
     return (
       <UserContext.Provider value={isAdmin}>
+        {(resultsEnabled || votingEnabled) && (
+          <div className="row mt-2 mb-2">
+            {votingEnabled && (
+              <div className="col">
+                <a className="btn btn-warning btn-lg btn-block" href="/votes" role="button">Vote in Straw-Poll</a>
+              </div>
+            )}
+            {resultsEnabled && (
+              <div className="col">
+                <a className="btn btn-success btn-lg btn-block" href="/results" role="button">See Straw-Poll Results</a>
+              </div>
+            )}
+          </div>
+        )}
+
+
+
         <div className="row">
           <h2 className="col">Questions</h2>
           <div className="col text-right mr-4 mt-2">
