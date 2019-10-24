@@ -1,17 +1,15 @@
 import React from 'react'
 
 export default class Voting extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { canVote: true }
-  }
-
   handleVote(up) {
-    const { id: questionId } = this.props.question
-    this.setState({ canVote: false }) // TODO: better canVote lock-out
+    const { id: questionId, canVote } = this.props.question
+    if (!canVote) {
+      console.warn("you can't vote on question", this.props.question)
+      return
+    }
     this.props.onVote(questionId, up).catch((err) => {
       console.error("couldn't vote on", questionId, 'up=', up)
-      alert("couldn't vote")
+      window.alert("couldn't vote")
     })
   }
 
@@ -24,6 +22,10 @@ export default class Voting extends React.Component {
   }
 
   handleDismiss() {
+    if (!window.confirm("Hide question?")) {
+      return
+    }
+
     const { id: questionId } = this.props.question
     this.props.onDismiss(questionId).catch((err) => {
       console.error("couldn't dismiss", questionId)
@@ -32,8 +34,8 @@ export default class Voting extends React.Component {
   }
 
   render() {
-    const { isAdmin } = this.props
-    const { voteCount, upVoteCount, downVoteCount } = this.props.question
+    const { isAdmin, question } = this.props
+    const { voteCount, upVoteCount, downVoteCount, canVote } = question
 
     if (isAdmin) {
       return (
@@ -51,7 +53,6 @@ export default class Voting extends React.Component {
       )
     }
 
-    const { canVote } = this.state;
     if (!canVote) {
       return (
         <>

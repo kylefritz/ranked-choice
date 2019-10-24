@@ -6,7 +6,10 @@ Rails.application.routes.draw do
 
   resources :candidates
   resources :questions do
-    post 'vote', on: :member
+    member do 
+      post 'vote'
+      post 'dismiss'  
+    end
   end
   resources :votes
   resources :results

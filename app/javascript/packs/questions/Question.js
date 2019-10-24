@@ -6,9 +6,9 @@ import UserContext from './UserContext'
 export default class Question extends React.Component {
   render() {
     const { question, onVote, onDismiss } = this.props
-    const { text, submittedBy } = question
+    const { text, submittedBy, isHidden } = question
     return (
-      <section className="row mt-5">
+      <section className={`row mt-5 ${isHidden && 'd-none'}`}>
         <div className="col">
           <p className="lead">{text}</p>
           <div className="small" style={{ marginTop: '-16px', paddingBottom: '20px' }}>{submittedBy}</div>
@@ -18,7 +18,6 @@ export default class Question extends React.Component {
             {isAdmin => (<Voting {...{ question, onVote, isAdmin, onDismiss }} />)}
           </UserContext.Consumer>
         </div>
-
       </section>
     )
   }
