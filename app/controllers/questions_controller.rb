@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    Question.create!(text: params[:text], submitted_by: params[:author])
+    Question.create!(text: params[:text], submitted_by: params[:author], block: params[:block])
 
     render_all_questions
   end

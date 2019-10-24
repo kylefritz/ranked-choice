@@ -2,6 +2,7 @@ json.questions @questions.map do |q|
   json.id q.id
   json.text q.text
   json.submitted_by q.submitted_by
+  json.block q.block
   json.up_vote_count q.up_vote_count
   json.down_vote_count q.down_vote_count
   json.vote_count q.vote_count

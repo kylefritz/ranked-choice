@@ -5,6 +5,7 @@ export default class SubmitQuestion extends React.Component {
     super(props)
     this.refText = React.createRef();
     this.refName = React.createRef();
+    this.refBlock = React.createRef();
     this.state = { justAsked: false };
   }
 
@@ -13,6 +14,7 @@ export default class SubmitQuestion extends React.Component {
 
     const text = this.refText.current.value;
     const author = this.refName.current.value;
+    const block = this.refBlock.current.value;
 
     if (!text) {
       alert("You forgot to include the question")
@@ -24,10 +26,16 @@ export default class SubmitQuestion extends React.Component {
       return
     }
 
-    this.props.onAsk({ text, author }).then(() => {
+    if (!block) {
+      alert("Include your block/location")
+      return
+    }
+
+    this.props.onAsk({ text, author, block }).then(() => {
       // clear form
       this.refText.current.value = ""
       this.refName.current.value = ""
+      this.refBlock.current.value = ""
 
       // hide form for a little so people know we took care of it
       this.setState({ justAsked: true })
@@ -66,6 +74,10 @@ export default class SubmitQuestion extends React.Component {
         <div className="form-group">
           <label htmlFor="sq-submitted-by">Your Name</label>
           <input type="text" className="form-control" id="sq-submitted-by" placeholder="What's your name?" ref={this.refName} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="sq-block">Your Block/Street</label>
+          <input type="text" className="form-control" id="sq-block" placeholder="in the 12th District" ref={this.refBlock} />
         </div>
         <button type="submit" className="btn btn-primary">Submit Question</button>
       </form >

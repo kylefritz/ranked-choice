@@ -43,15 +43,21 @@ export default class Voting extends React.Component {
     if (isAdmin) {
       return (
         <>
-          <button type="button" className="btn btn-outline-danger" onClick={this.handleDismiss.bind(this)}>
-            <span className="oi oi-circle-x"></span> Dismiss
+          <button onClick={this.handleUpVote.bind(this)}
+            className="btn btn-outline-primary btn-sm" type="button">
+            <span className="oi oi-arrow-thick-top" /> {upVoteCount}
           </button>
-          <p className="mt-1 ml-3">
-            <small>
-              <span className="oi oi-arrow-thick-top" /> {upVoteCount}{" "}
-              <span className="oi oi-arrow-thick-bottom" /> {downVoteCount}
-            </small>
-          </p>
+
+          <button onClick={this.handleDownVote.bind(this)}
+            className="btn btn-outline-primary btn-sm ml-1" type="button">
+            <span className="oi oi-arrow-thick-bottom" /> {downVoteCount}
+          </button >
+
+          <button onClick={this.handleDismiss.bind(this)}
+            title="Dismiss this question"
+            className="btn btn-outline-danger btn-sm ml-3" type="button" >
+            <span className="oi oi-circle-x"></span>
+          </button>
         </>
       )
     }
