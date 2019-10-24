@@ -35,10 +35,9 @@ export default class Voting extends React.Component {
     const { isAdmin } = this.props
     const { voteCount, upVoteCount, downVoteCount } = this.props.question
 
-
     if (isAdmin) {
       return (
-        <div className="col">
+        <>
           <button type="button" className="btn btn-outline-danger" onClick={this.handleDismiss.bind(this)}>
             <span className="oi oi-circle-x"></span> Dismiss
           </button>
@@ -48,33 +47,38 @@ export default class Voting extends React.Component {
               <span className="oi oi-arrow-thick-bottom" /> {downVoteCount}
             </small>
           </p>
-        </div >
+        </>
       )
     }
 
     const { canVote } = this.state;
     if (!canVote) {
       return (
-        <div className="col" title="You already voted for this one">
+        <>
           <div>
             <span className="oi oi-arrow-thick-top" /> {upVoteCount}
           </div>
           <div>
             <span className="oi oi-arrow-thick-bottom" /> {downVoteCount}
           </div>
-        </div>)
+        </>)
     }
 
     return (
-      <div className="col" alt={`voteCount=${voteCount}`}>
-        <button type="button" className="btn btn-outline-primary" onClick={this.handleUpVote.bind(this)}>
-          <span className="oi oi-arrow-thick-top" /> {upVoteCount}
-        </button>
-        <br />
-        <button type="button" className="btn btn-outline-primary mt-2" onClick={this.handleDownVote.bind(this)} >
-          <span className="oi oi-arrow-thick-bottom" /> {downVoteCount}
-        </button >
-      </div >
+      <>
+        <div>
+          <button onClick={this.handleUpVote.bind(this)}
+            className="btn btn-outline-primary" type="button">
+            <span className="oi oi-arrow-thick-top" /> {upVoteCount}
+          </button>
+        </div>
+        <div className="mt-2">
+          <button onClick={this.handleDownVote.bind(this)}
+            className="btn btn-outline-primary" type="button">
+            <span className="oi oi-arrow-thick-bottom" /> {downVoteCount}
+          </button >
+        </div>
+      </>
     )
   }
 }

@@ -1,20 +1,20 @@
 class QuestionsController < ApplicationController
-  before_action :set_question_voter_id
+  before_action :set_cookie_question_voter_id
+  before_action :set_is_admin
 
   def index
-    @questions = load_all_questions
     respond_to do |format|
       format.html # index.html.erb
-      format.json # index.json.jbuilder
+      format.json do
+        render_all_questions
+      end
     end
   end
 
   def create
     Question.create!(text: params[:text], submitted_by: params[:author])
 
-    # return json of all questions
-    @questions = load_all_questions
-    render :index
+    render_all_questions
   end
 
   def vote
@@ -22,32 +22,46 @@ class QuestionsController < ApplicationController
 
     # TODO: this isn't realy working
     # HACK: could use a db index for better concurrency
-    unless earlier_vote = question.question_votes.find_by(voted_by: question_voter_id)
+    if question.can_vote?(question_voter_id)
       question.question_votes.create!(
         voted_by: question_voter_id,
         is_upvote: params[:up]
       )
     end
 
-    # return json of all questions
-    @questions = load_all_questions
-    render :index
+    render_all_questions
+  end
+
+  def dismiss
+    # TODO: finish dismiss
+    question = Question.find(params[:id])
+    question.is_hidden = true
+    question.save!
+
+    render_all_questions
   end
 
   private
 
-  def load_all_questions
-    Question.includes(:question_votes).all.sort_by {|q| -1 * q.vote_count }
+  def render_all_questions
+    @questions = Question.includes(:question_votes).all.sort_by {|q| -1 * q.vote_count }
+    render :index
   end
 
-    def question_voter_id
+  def question_voter_id
     # used to limit one vote per user
     # obviously can be foiled with an incognito browser window
-    cookies.permanent[:question_voter_id]
+    @question_voter_id = cookies.permanent[:question_voter_id]
   end
 
-  def set_question_voter_id
-    cookies.permanent[:question_voter_id] = SecureRandom.hex(10)
-    logger.info "setting set_question_voter_id to #{question_voter_id}"
+  def set_cookie_question_voter_id
+    unless question_voter_id
+      cookies.permanent[:question_voter_id] = SecureRandom.hex(10)
+      logger.info "setting question_voter_id=#{question_voter_id}"
+    end
+  end
+
+  def set_is_admin
+    @is_admin = !!current_user&.is_admin?
   end
 end

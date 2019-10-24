@@ -9,13 +9,15 @@ export default class Question extends React.Component {
     const { text, submittedBy } = question
     return (
       <section className="row mt-5">
-        <div className="col-8">
+        <div className="col">
           <p className="lead">{text}</p>
           <div className="small" style={{ marginTop: '-16px', paddingBottom: '20px' }}>{submittedBy}</div>
         </div>
-        <UserContext.Consumer>
-          {isAdmin => (<Voting {...{ question, onVote, isAdmin, onDismiss }} />)}
-        </UserContext.Consumer>
+        <div className="col-auto">
+          <UserContext.Consumer className="col-auto">
+            {isAdmin => (<Voting {...{ question, onVote, isAdmin, onDismiss }} />)}
+          </UserContext.Consumer>
+        </div>
 
       </section>
     )
