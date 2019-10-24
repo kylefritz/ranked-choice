@@ -8,9 +8,9 @@ export default class Question extends React.Component {
     const { question, onVote, onDismiss, isEnabled } = this.props
     const { text, submittedBy, isHidden, block } = question
     return (
-      <section className={`row mt-5 ${isHidden && 'd-none'}`}>
+      <section className={`row ${isHidden && 'd-none'}`} style={{ minHeight: '106px' }}>
         <div className="col">
-          <p className="lead">{text}</p>
+          <p className="question">{text}</p>
           <div className="small" style={{ marginTop: '-16px', paddingBottom: '20px' }}>
             {submittedBy} <strong>from</strong> {block}
           </div>
