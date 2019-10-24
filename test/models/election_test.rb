@@ -56,4 +56,13 @@ class ElectionTest < ActiveSupport::TestCase
     Election.new([]).ranked_choice_results
     Election.new([]).winner_take_all_results
   end
+
+  test "performance" do
+    names = Candidate.pluck(:last_name)
+    100.times.each do
+      Vote.create!(ordered_candidate_last_names: names.shuffle.join(','), voted_by:'test')
+    end
+    the_votes = Vote.all.map(&:candidate_preference)
+    Election.new(the_votes).winner_take_all_results
+  end
 end
