@@ -69,10 +69,7 @@ export default class App extends React.Component {
     const text = () => {
       const numCandidates = this.state.candidates.length;
       if (num == 1) {
-        return "You can ranked more than 1 candidate. Submit ballot anyway?"
-      }
-      if (num < numCandidates) {
-        return "You have not ranked all the candidates. Submit ballot anyway?"
+        return "You can rank more than 1 candidate. Submit ballot anyway?"
       }
       return "Submit ballot?"
     }
@@ -119,7 +116,8 @@ export default class App extends React.Component {
     return (
       <div>
         <h3>Rank the candidates</h3>
-        <p>Tap in order to rank them</p>
+        <p>Tap on names in the order of your preference.</p>
+        <p>It's ok not to rank all of the candidates.</p>
 
         {Object.values(ballot).map((c) =>
           <Candidate key={c.lastName} {...c} onRank={this.handleRank.bind(this)} />)}
@@ -129,7 +127,7 @@ export default class App extends React.Component {
             <button type="button"
               className="btn btn-secondary btn-lg btn-block"
               onClick={this.handleReset.bind(this)}>
-              Reset
+              Start Over
             </button>
           </div>
           <div className="col">
