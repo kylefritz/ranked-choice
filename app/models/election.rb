@@ -9,32 +9,35 @@ class Election
   end
 
   def ranked_choice_results
-    if @votes.empty?
-      Rails.logger.info "no votes??"
-      return [{}, []]
-    end
-    vote_tally = update_vote_tally_for_votes(empty_vote_tally(), @votes)
-    vote_tallys_by_round = []
-
-    vote_tally.size.times do |round|
-      round_results = summarize_results(vote_tally)
-      vote_tallys_by_round.push(round_results)
-      Rails.logger.info "\nround=#{round + 1} leader_has=#{leading_fraction(round_results)} #{round_results}"
-
-      if winner_decided?(round_results)
-        if round_results.values.uniq.size == 1
-          winner = round_results.max_by {|k,v| v}.first
-          Rails.logger.info "decided on #{winner}\n\n"
-        else
-          Rails.logger.info "Tie between #{round_results.keys.join(' & ')}!\n\n"
-        end
-        return [round_results, vote_tallys_by_round]
+    # TODO: why doesn't this benchmark print?
+    Vote.benchmark("election#ranked_choice_results") do
+      if @votes.empty?
+        Rails.logger.info "no votes??"
+        return [{}, []]
       end
-      Rails.logger.info "not decided"
-      
-      vote_tally = instant_runoff(vote_tally, round_results)
+      vote_tally = update_vote_tally_for_votes(empty_vote_tally(), @votes)
+      vote_tallys_by_round = []
+
+      vote_tally.size.times do |round|
+        round_results = summarize_results(vote_tally)
+        vote_tallys_by_round.push(round_results)
+        Rails.logger.info "\nround=#{round + 1} leader_has=#{leading_fraction(round_results)} #{round_results}"
+
+        if winner_decided?(round_results)
+          if round_results.values.uniq.size == 1
+            winner = round_results.max_by {|k,v| v}.first
+            Rails.logger.info "decided on #{winner}\n\n"
+          else
+            Rails.logger.info "Tie between #{round_results.keys.join(' & ')}!\n\n"
+          end
+          return [round_results, vote_tallys_by_round]
+        end
+        Rails.logger.info "not decided"
+        
+        vote_tally = instant_runoff(vote_tally, round_results)
+      end
+      throw "Winner should have been selected! #{vote_tally}"
     end
-    throw "Winner should have been selected! #{vote_tally}"
   end
 
   def instant_runoff(vote_tally, round_results)
