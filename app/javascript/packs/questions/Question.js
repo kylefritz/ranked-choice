@@ -5,7 +5,7 @@ import UserContext from './UserContext'
 
 export default class Question extends React.Component {
   render() {
-    const { question, onVote, onDismiss } = this.props
+    const { question, onVote, onDismiss, isEnabled } = this.props
     const { text, submittedBy, isHidden } = question
     return (
       <section className={`row mt-5 ${isHidden && 'd-none'}`}>
@@ -15,7 +15,7 @@ export default class Question extends React.Component {
         </div>
         <div className="col-auto">
           <UserContext.Consumer className="col-auto">
-            {isAdmin => (<Voting {...{ question, onVote, isAdmin, onDismiss }} />)}
+            {isAdmin => (<Voting {...{ question, onVote, isAdmin, onDismiss, isEnabled }} />)}
           </UserContext.Consumer>
         </div>
       </section>

@@ -1,5 +1,7 @@
 import React from 'react'
 
+let havePressedHidOnce = false
+
 export default class Voting extends React.Component {
   handleVote(up) {
     const { id: questionId, canVote } = this.props.question
@@ -22,9 +24,10 @@ export default class Voting extends React.Component {
   }
 
   handleDismiss() {
-    if (!window.confirm("Hide question?")) {
+    if (!havePressedHidOnce && !window.confirm("Hide question?")) {
       return
     }
+    havePressedHidOnce = true
 
     const { id: questionId } = this.props.question
     this.props.onDismiss(questionId).catch((err) => {
@@ -34,7 +37,7 @@ export default class Voting extends React.Component {
   }
 
   render() {
-    const { isAdmin, question } = this.props
+    const { isAdmin, question, isEnabled } = this.props
     const { voteCount, upVoteCount, downVoteCount, canVote } = question
 
     if (isAdmin) {
@@ -53,7 +56,7 @@ export default class Voting extends React.Component {
       )
     }
 
-    if (!canVote) {
+    if (!canVote || !isEnabled) {
       return (
         <>
           <div>

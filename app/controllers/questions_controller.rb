@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_cookie_question_voter_id
-  before_action :set_is_admin
+  before_action :set_vars_for_jbuilder
+  before_action :redirect_if_questions_disabled, only: [:create, :vote]
 
   def index
     respond_to do |format|
@@ -20,7 +21,6 @@ class QuestionsController < ApplicationController
   def vote
     question = Question.find(params[:id])
 
-    # TODO: this isn't realy working
     # HACK: could use a db index for better concurrency
     if question.can_vote?(question_voter_id)
       question.question_votes.create!(
@@ -33,7 +33,6 @@ class QuestionsController < ApplicationController
   end
 
   def dismiss
-    # TODO: finish dismiss
     question = Question.find(params[:id])
     question.is_hidden = true
     question.save!
@@ -61,7 +60,15 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def set_is_admin
+  def set_vars_for_jbuilder
     @is_admin = !!current_user&.is_admin?
+    @is_enabled = Setting.questions_enabled
+  end
+
+  def redirect_if_questions_disabled
+    unless Setting.questions_enabled
+      logger.warn "Setting.questions_disabled; ignoring request"
+      return render_all_questions
+    end 
   end
 end

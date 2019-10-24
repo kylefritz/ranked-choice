@@ -8,7 +8,7 @@ import UserContext from './UserContext'
 export default class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { isAdmin: false }
+    this.state = { isAdmin: false, isEnabled: true }
   }
 
   componentDidMount() {
@@ -26,9 +26,9 @@ export default class App extends React.Component {
       throw "couldn't get questions"
     })
   }
-  updateAppState({ data: { questions, isAdmin } }) {
+  updateAppState({ data: { questions, isAdmin, isEnabled } }) {
     console.log(questions, isAdmin)
-    this.setState({ questions, isAdmin })
+    this.setState({ questions, isAdmin, isEnabled })
   }
 
   async handleAsk(question) {
@@ -44,7 +44,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { questions, isAdmin } = this.state || {};
+    const { questions, isAdmin, isEnabled } = this.state;
     return (
       <UserContext.Provider value={isAdmin}>
         <div className="row">
@@ -54,14 +54,23 @@ export default class App extends React.Component {
           </div>
         </div>
 
-        {!isAdmin && <p><span className="oi oi-arrow-thick-top"></span> Up or <span className="oi oi-arrow-thick-bottom"></span> down vote submitted questions. Or submit your own.</p>}
+        {!isAdmin && (
+          isEnabled ?
+            <p><span className="oi oi-arrow-thick-top"></span> Up or <span className="oi oi-arrow-thick-bottom"></span> down vote submitted questions. Or submit your own.</p>
+            : <p>We aren't accepting questions right now.</p>
+        )}
 
         {questions ?
-          questions.map(q => <Question key={q.id} {...{ question: q, onVote: this.handleVote.bind(this), onDismiss: this.handleDismiss.bind(this) }} />)
+          questions.map(q => <Question key={q.id} {...{
+            question: q,
+            onVote: this.handleVote.bind(this),
+            onDismiss: this.handleDismiss.bind(this),
+            isEnabled
+          }} />)
           : <h4>Loading...</h4>
         }
 
-        <SubmitQuestion onAsk={this.handleAsk.bind(this)} />
+        {isEnabled && <SubmitQuestion onAsk={this.handleAsk.bind(this)} />}
       </UserContext.Provider>
     )
   }

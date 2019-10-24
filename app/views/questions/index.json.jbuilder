@@ -9,3 +9,4 @@ json.questions @questions.map do |q|
   json.can_vote q.can_vote?(@question_voter_id)
 end
 json.is_admin @is_admin
+json.is_enabled @is_enabled
