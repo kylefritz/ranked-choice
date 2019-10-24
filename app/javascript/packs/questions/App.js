@@ -13,7 +13,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.loadQuestions()
-    this.timer = setInterval(() => this.loadQuestions(), 30 * 1000);
+    this.timer = setInterval(() => this.loadQuestions(), 20 * 1000);
   }
 
   componentWillUnmount() {

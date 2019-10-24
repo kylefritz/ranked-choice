@@ -18,21 +18,39 @@ export default class App extends React.Component {
   }
 
   loadResults() {
-    axios.get('/results.json').then(({ data: rounds }) => {
-      this.setState({ rounds })
+    axios.get('/results.json').then(({ data }) => {
+      console.log(data)
+      this.setState(data)
     }).catch((err) => {
       throw "couldn't get results"
     }).finally(() => this.setState({ loaded: true }))
   }
 
   render() {
-    const { rounds, loaded } = this.state || {};
+    const { rounds, loaded, resultsEnabled, isAdmin } = this.state || {};
     if (!loaded) {
       return <h5>Loading...</h5>
     }
+
+    if (!isAdmin && !resultsEnabled) {
+      return (
+        <>
+          <h3 class="text-center mt-5 mb-3">
+            Results not open yet
+          </h3>
+          <h3 class="text-center">
+            <small>
+              <span className="oi oi-bolt text-success live" /> live
+            </small>
+          </h3>
+        </>
+      )
+    }
+
     if (!rounds.length) {
       return <h5>No results yet :/</h5>
     }
+
     const totalVotes = _.sum(Object.values(_.get(rounds, 0, {})))
     return (
       <>
@@ -42,7 +60,6 @@ export default class App extends React.Component {
             <small>votes cast: {totalVotes} <br />
               <span className="oi oi-bolt text-success"></span> live
             </small>
-
           </div>
         </div>
 
@@ -51,6 +68,8 @@ export default class App extends React.Component {
           <p>In <a href="https://www.fairvote.org/rcv" target="_blank">ranked-choice voting</a>, voters get to rank candidates in order of choice. If a candidate receives more than half of the first choices, they win, just like any other election. If not, the candidate with the fewest votes is eliminated, and voters who picked that candidate as ‘number 1’ will have their votes count for their next choice. This process continues for multiple rounds until a candidate wins with more than half of the votes.</p>
           <p>In traditional voting, the candidate with the most votes in the 1st round would win.</p>
         </details>
+
+        {!resultsEnabled && isAdmin && <p className="text-danger">Results are hidden; you're seeing because you're admin</p>}
 
         {rounds.map((round, i) => {
           const winner = round

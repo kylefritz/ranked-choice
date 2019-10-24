@@ -1,4 +1,4 @@
-<% if Setting.results_enabled %>
+<% if Setting.results_enabled || Setting.voting_enabled %>
   <div id="mount-results-react-app" />
   <%= javascript_pack_tag 'results' %>
 <% else %>
