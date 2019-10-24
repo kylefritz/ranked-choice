@@ -25,18 +25,27 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/questions">
+              <a
+                class="nav-link <%=Setting.questions_enabled ? '' : 'disabled' %>"
+                aria-disabled="<%=!Setting.questions_enabled %>"
+                href="/questions">
                 Questions
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/votes">
-                Vote in straw-poll
+              <a
+                 class="nav-link <%=Setting.voting_enabled ? '' : 'disabled' %>"
+                 aria-disabled="<%=!Setting.voting_enabled %>"
+                 href="/votes">
+                Vote in Straw-Poll
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/results">
-                Straw-poll results
+              <a
+                 class="nav-link <%=Setting.results_enabled ? '' : 'disabled' %>"
+                 aria-disabled="<%=!Setting.results_enabled %>"
+                href="/results">
+                Straw-Poll Results
               </a>
             </li>
           </ul>

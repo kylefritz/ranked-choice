@@ -1,2 +1,14 @@
-<div id="mount-results-react-app" />
-<%= javascript_pack_tag 'results' %>
+<% if Setting.results_enabled %>
+  <div id="mount-results-react-app" />
+  <%= javascript_pack_tag 'results' %>
+<% else %>
+  <h3>Results is not open</h3>
+
+  <% if Setting.voting_enabled %>
+    <a class="btn btn-primary" href="/results" role="button">Rank Candidates</a>
+  <% end %>
+
+  <% if Setting.questions_enabled %>
+    <a class="btn btn-primary" href="/results" role="button">Audience Questions</a>
+  <% end %>
+<% end %>

@@ -114,7 +114,7 @@ export default class App extends React.Component {
       return <h5>Can't load ballot :(</h5>
     }
     return (
-      <div>
+      <>
         <h3>Rank the candidates</h3>
         <p>Tap on names in the order of your preference.</p>
         <p>It's ok not to rank all of the candidates.</p>
@@ -138,7 +138,7 @@ export default class App extends React.Component {
           </button>
           </div>
         </div >
-      </div >
+      </>
     )
   }
 }

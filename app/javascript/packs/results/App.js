@@ -35,7 +35,7 @@ export default class App extends React.Component {
     }
     const totalVotes = _.sum(Object.values(_.get(rounds, 0, {})))
     return (
-      <div>
+      <>
         <div className="row">
           <h3 className="col">Results</h3>
           <div className="col align-middle text-right">
@@ -77,7 +77,7 @@ export default class App extends React.Component {
         <hr />
         <p>The real Baltimore City Primary is April 28, 2020.</p>
         <p>Early voting is April 16 to April 23.</p>
-      </div >
+      </>
     )
   }
 }
