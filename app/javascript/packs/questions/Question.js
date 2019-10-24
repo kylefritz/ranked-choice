@@ -12,7 +12,7 @@ export default class Question extends React.Component {
         <div className="col">
           <p className="question">{text}</p>
           <div className="small" style={{ marginTop: '-16px', paddingBottom: '20px' }}>
-            {submittedBy} <strong>from</strong> {block}
+            <strong>{submittedBy}</strong> from {block}
           </div>
         </div>
         <div className="col-auto">
