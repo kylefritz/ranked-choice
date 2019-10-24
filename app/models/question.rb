@@ -6,11 +6,11 @@ class Question < ApplicationRecord
   end
 
   def up_vote_count
-    question_votes.where(is_upvote: true).count
+    question_votes.select {|q| q.is_upvote}.count
   end
 
   def down_vote_count
-    question_votes.where(is_upvote: false).count
+    question_votes.reject {|q| q.is_upvote}.count
   end
 
   def can_vote?(voter_id)
