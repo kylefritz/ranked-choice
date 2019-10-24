@@ -1,0 +1,13 @@
+<div class="text-center">
+  <% if Setting.voting_enabled %>
+    <a class="btn btn-primary" href="/votes" role="button">Rank Candidates</a>
+  <% end %>
+
+  <% if Setting.questions_enabled %>
+    <a class="btn btn-primary" href="/questions" role="button">Audience Questions</a>
+  <% end %>
+
+  <% if Setting.results_enabled %>
+    <a class="btn btn-primary" href="/results" role="button">Voting Results</a>
+  <% end %>
+</div>
