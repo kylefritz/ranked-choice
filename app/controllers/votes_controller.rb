@@ -4,6 +4,9 @@ class VotesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json do
+        unless @vote
+          return render json: nil
+        end
         return render :show
       end
     end
