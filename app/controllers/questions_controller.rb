@@ -43,7 +43,7 @@ class QuestionsController < ApplicationController
   private
 
   def render_all_questions
-    @questions = Question.includes(:question_votes).all.sort_by {|q| -1 * q.vote_count }
+    @questions = Question.includes(:question_votes).all.sort_by {|q| [-1 * q.vote_count, q.created_at] }
     render :index
   end
 
