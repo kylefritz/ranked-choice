@@ -16,10 +16,10 @@ export default function Voted({ vote }) {
         return (
           <div className="row mt-3" key={lastName}>
             <div className="col-2">
-              <h5 className="align-middle text-center">{i + 1}</h5>
+              <h5 className="text-center">{i + 1}</h5>
             </div>
             <div className="col-10">
-              <h5 className="align-middle">{firstName} {lastName}</h5>
+              <h5>{firstName} {lastName}</h5>
             </div>
           </div>
         );

@@ -38,7 +38,7 @@ export default class App extends React.Component {
       <>
         <div className="row">
           <h3 className="col">Results</h3>
-          <div className="col align-middle text-right">
+          <div className="col text-right">
             <small>votes cast: {totalVotes} <br />
               <span className="oi oi-bolt text-success"></span> live
             </small>

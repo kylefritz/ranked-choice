@@ -49,7 +49,7 @@ export default class App extends React.Component {
       <UserContext.Provider value={isAdmin}>
         <div className="row">
           <h2 className="col">Questions</h2>
-          <div className="col align-middle text-right mr-4 mt-2">
+          <div className="col text-right mr-4 mt-2">
             <span className="oi oi-bolt text-success live" /> live
           </div>
         </div>
