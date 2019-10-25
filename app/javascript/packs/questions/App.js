@@ -89,6 +89,11 @@ export default class App extends React.Component {
         }
 
         {isEnabled && <SubmitQuestion onAsk={this.handleAsk.bind(this)} />}
+
+        <div className="mt-3">
+          <p className="lead">The Baltimore City Primary is April 28, 2020.</p>
+          <p className="lead">Early voting is from April 16-23, 2020.</p>
+        </div>
       </UserContext.Provider>
     )
   }

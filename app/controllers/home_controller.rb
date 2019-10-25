@@ -8,9 +8,7 @@ class HomeController < ApplicationController
       return redirect_to :results
     end
 
-    if Setting.questions_enabled
-      return redirect_to :questions
-    end
+    return redirect_to :questions
   end
 
   def signout
