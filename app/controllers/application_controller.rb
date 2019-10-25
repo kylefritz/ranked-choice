@@ -16,8 +16,8 @@ class ApplicationController < ActionController::Base
   def redirect_unless_user_is_admin!
     # used by active admin to keep out non-admins
     unless current_user&.is_admin?
-      logger.info "its NOT ok"
-      return redirect_to '/', alert: 'you must be an admin'
+      logger.info "its NOT ok. user isn't admin"
+      return redirect_to '/users/sign_in', alert: 'you must be an admin'
     end
 
     logger.info "its ok the user is an admin"

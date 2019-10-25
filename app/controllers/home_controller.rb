@@ -12,4 +12,9 @@ class HomeController < ApplicationController
       return redirect_to :questions
     end
   end
+
+  def signout
+    sign_out :user
+    redirect_to "/"
+  end
 end
