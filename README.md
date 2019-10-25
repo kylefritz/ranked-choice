@@ -1,4 +1,4 @@
-# Live Audience Questions & Ranked-Choice Voting Web App
+# Live Audience Questions & Ranked-Choice Voting
 
 [![Demo](https://img.youtube.com/vi/CfnVlg9uNrQ/0.jpg)](https://www.youtube.com/watch?v=CfnVlg9uNrQ)
 
