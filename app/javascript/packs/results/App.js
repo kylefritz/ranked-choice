@@ -31,6 +31,7 @@ export default class App extends React.Component {
     if (!loaded) {
       return <h5>Loading...</h5>
     }
+    const totalVotes = rounds && _.sum(Object.values(_.get(rounds, 0, {})))
 
     if (!isAdmin && !resultsEnabled) {
       return (
@@ -43,15 +44,19 @@ export default class App extends React.Component {
               <span className="oi oi-bolt text-success live" /> live
             </small>
           </h3>
+          {totalVotes && (
+            <h3 class="text-center mt-4">
+              <small>votes cast: {totalVotes} </small>
+            </h3>
+          )}
         </>
       )
     }
 
-    if (!rounds.length) {
+    if (!_.get(rounds, 'length')) {
       return <h5>No results yet :/</h5>
     }
 
-    const totalVotes = _.sum(Object.values(_.get(rounds, 0, {})))
     return (
       <>
         <div className="row">
