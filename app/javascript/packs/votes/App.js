@@ -21,7 +21,6 @@ export default class App extends React.Component {
       // load candidates
       axios.get('/candidates.json').then(({ data: candidates }) => {
 
-        const ballot = createBallot(candidates)
         this.setState({ candidates })
         this.resetBallot()
       }).catch((err) => {
