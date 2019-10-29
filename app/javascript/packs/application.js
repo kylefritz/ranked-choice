@@ -8,7 +8,6 @@ require("@rails/ujs").start()
 require("@rails/activestorage").start()
 require("channels")
 
-
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -20,3 +19,10 @@ require("channels")
 import * as Sentry from '@sentry/browser';
 
 Sentry.init({ dsn: 'https://885fd04e048147d1a623f514f5aa06fb@sentry.io/1793183' });
+
+//
+// ahoy
+//
+import ahoy from "ahoy.js";
+ahoy.trackAll();
+// ahoy.track("My second event", {language: "JavaScript"});

@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
 
   before_action :set_paper_trail_whodunnit # calls user_for_paper_trail
   before_action :set_raven_context
+  after_action :track_action
+
+  protected
 
   def set_raven_context
     Raven.user_context(id: current_user&.id, email: current_user&.email, is_admin: current_user&.is_admin)
@@ -27,5 +30,9 @@ class ApplicationController < ActionController::Base
     if current_user&.is_admin?
       current_user
     end
+  end
+
+  def track_action
+    ahoy.track "Ran action", request.path_parameters
   end
 end

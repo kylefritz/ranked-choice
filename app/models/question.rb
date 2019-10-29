@@ -1,5 +1,6 @@
 class Question < ApplicationRecord
   has_many :question_votes
+  visitable :ahoy_visit
 
   def vote_count
     up_vote_count - down_vote_count

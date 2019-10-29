@@ -30,4 +30,9 @@ Rails.application.routes.draw do
   # sign out
   get '/logout' => redirect('/signout')
   get '/signout' => 'home#signout'
+
+  # blazer
+  authenticate :user, ->(user) { user.is_admin? } do
+    mount Blazer::Engine, at: "blazer"
+  end
 end

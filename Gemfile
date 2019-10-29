@@ -4,7 +4,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 gem 'activeadmin' # admin ui
+gem 'ahoy_matey'
 gem 'bcrypt', '~> 3.1.7' # for devise
+gem 'blazer'
 gem 'bootsnap', '>= 1.4.2', require: false # Reduces boot times through caching; required in config/boot.rb
 gem 'bootstrap', '~> 4.3.1' # nice style
 gem 'devise' # for authentication
