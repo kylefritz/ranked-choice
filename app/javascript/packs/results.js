@@ -1,6 +1,6 @@
 // Run this example by adding <%= javascript_pack_tag 'results' %> to an erb page
 
-import ErrorBoundary from './results/ErrorBoundary.js'
+import ErrorBoundary from './ErrorBoundary.js'
 import App from './results/App.js'
 
 import React from 'react'

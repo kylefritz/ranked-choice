@@ -1,6 +1,6 @@
 // Run this example by adding <%= javascript_pack_tag 'votes' %> to an erb page
 
-import ErrorBoundary from './votes/ErrorBoundary.js'
+import ErrorBoundary from './ErrorBoundary.js'
 import App from './votes/App.js'
 
 import React from 'react'

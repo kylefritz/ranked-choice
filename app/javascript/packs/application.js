@@ -15,9 +15,10 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-// When using npm, import Sentry
+//
+// Sentry
+//
 import * as Sentry from '@sentry/browser';
-
 Sentry.init({ dsn: 'https://885fd04e048147d1a623f514f5aa06fb@sentry.io/1793183' });
 
 //

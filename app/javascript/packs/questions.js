@@ -1,6 +1,6 @@
 // Run this example by adding <%= javascript_pack_tag 'questions' %> to an erb page
 
-import ErrorBoundary from './questions/ErrorBoundary.js'
+import ErrorBoundary from './ErrorBoundary.js'
 import App from './questions/App.js'
 
 import React from 'react'
