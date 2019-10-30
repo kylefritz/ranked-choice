@@ -2,13 +2,22 @@
 
 // app is mostly design for mobile; don't let it strech out too wide on desktop
 @media (min-width: 1200px) {
-    .container{
-        max-width: 970px;
-    }
+  .container {
+    max-width: 970px;
+  }
 }
 
 // based on .lead but smaller font-size
 .question {
-    font-size: 1rem;
-    font-weight: 300;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+// for ErrorBoundary
+.stack-trace {
+  white-space: pre;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  font-size: 0.7em;
+  background: white;
 }
