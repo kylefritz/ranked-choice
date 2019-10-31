@@ -23,7 +23,7 @@ export default class App extends React.Component {
   loadQuestions() {
     return axios.get('/questions.json').then(this.updateAppState.bind(this)).catch((err) => {
       console.error("couldn't get questions", err)
-      throw "couldn't get questions"
+      throw err
     })
   }
 

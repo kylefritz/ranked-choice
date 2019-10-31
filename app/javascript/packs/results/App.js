@@ -22,7 +22,8 @@ export default class App extends React.Component {
       console.log(data)
       this.setState(data)
     }).catch((err) => {
-      throw "couldn't get results"
+      console.warn("couldnt get results")
+      throw err
     }).finally(() => this.setState({ loaded: true }))
   }
 

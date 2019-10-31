@@ -24,7 +24,8 @@ export default class App extends React.Component {
         this.setState({ candidates })
         this.resetBallot()
       }).catch((err) => {
-        throw "couldn't get questions"
+        console.warn("couldnt get candidates")
+        throw error
       }),
 
       // see if this person has already voted, if so they'll redirect to a confirmation page
