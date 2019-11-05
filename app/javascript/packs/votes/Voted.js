@@ -1,6 +1,5 @@
 import React from 'react'
-import axios from 'axios'
-import * as _ from 'lodash'
+import _ from 'lodash'
 
 export default function Voted({ vote }) {
   const ranked = vote.ranked.split(',')
