@@ -6,6 +6,7 @@ class Setting < RailsSettings::Base
   field :questions_enabled, default: true, type: :boolean
   field :voting_enabled, default: false, type: :boolean
   field :results_enabled, default: false, type: :boolean
+  field :google_analytics_tracker, default: nil, type: :string
 
   def self.questions_mode!
     Setting.questions_enabled = true
