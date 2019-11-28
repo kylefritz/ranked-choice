@@ -4,7 +4,7 @@ import ordinal from 'ordinal'
 
 export default function candidate({ firstName, lastName, rank, onRank }) {
   const canRank = !rank
-  const handleClick = (event) => {
+  const handleClick = () => {
     if (canRank) {
       onRank(lastName)
     }

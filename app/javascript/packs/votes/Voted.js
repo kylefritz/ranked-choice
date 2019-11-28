@@ -1,5 +1,4 @@
 import React from 'react'
-import _ from 'lodash'
 
 export default function Voted({ vote }) {
   const ranked = vote.ranked.split(',')

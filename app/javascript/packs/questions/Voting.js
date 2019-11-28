@@ -9,7 +9,7 @@ export default class Voting extends React.Component {
       console.warn("you can't vote on question", this.props.question)
       return
     }
-    this.props.onVote(questionId, up).catch((err) => {
+    this.props.onVote(questionId, up).catch(() => {
       console.error("couldn't vote on", questionId, 'up=', up)
       window.alert("couldn't vote")
     })
@@ -30,7 +30,7 @@ export default class Voting extends React.Component {
     havePressedHidOnce = true
 
     const { id: questionId } = this.props.question
-    this.props.onDismiss(questionId).catch((err) => {
+    this.props.onDismiss(questionId).catch(() => {
       console.error("couldn't dismiss", questionId)
       alert("couldn't dismiss")
     })
@@ -38,7 +38,7 @@ export default class Voting extends React.Component {
 
   render() {
     const { isAdmin, question, isEnabled } = this.props
-    const { voteCount, upVoteCount, downVoteCount, canVote } = question
+    const { upVoteCount, downVoteCount, canVote } = question
 
     if (isAdmin) {
       return (
