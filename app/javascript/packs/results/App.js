@@ -37,16 +37,16 @@ export default class App extends React.Component {
     if (!isAdmin && !resultsEnabled) {
       return (
         <>
-          <h3 class="text-center mt-5 mb-3">
+          <h3 className="text-center mt-5 mb-3">
             Results not open yet
           </h3>
-          <h3 class="text-center">
+          <h3 className="text-center">
             <small>
               <span className="oi oi-bolt text-success live" /> live
             </small>
           </h3>
           {totalVotes && (
-            <h3 class="text-center mt-4">
+            <h3 className="text-center mt-4">
               <small>votes cast: {totalVotes} </small>
             </h3>
           )}
@@ -71,14 +71,13 @@ export default class App extends React.Component {
 
         <details>
           <summary>What is ranked-choice voting?</summary>
-          <p>In <a href="https://www.fairvote.org/rcv" target="_blank">ranked-choice voting</a>, voters get to rank candidates in order of choice. If a candidate receives more than half of the first choices, they win, just like any other election. If not, the candidate with the fewest votes is eliminated, and voters who picked that candidate as ‘number 1’ will have their votes count for their next choice. This process continues for multiple rounds until a candidate wins with more than half of the votes.</p>
+          <p>In <a href="https://www.fairvote.org/rcv" target="_blank" rel="noopener noreferrer">ranked-choice voting</a>, voters get to rank candidates in order of choice. If a candidate receives more than half of the first choices, they win, just like any other election. If not, the candidate with the fewest votes is eliminated, and voters who picked that candidate as ‘number 1’ will have their votes count for their next choice. This process continues for multiple rounds until a candidate wins with more than half of the votes.</p>
           <p>In traditional voting, the candidate with the most votes in the 1st round would win.</p>
         </details>
 
         {!resultsEnabled && isAdmin && <p className="text-danger">Results are hidden; you're seeing because you're admin</p>}
 
         {rounds.map((round, i) => {
-          const winner = round
           return (
             <div key={i} className="row mt-3">
               <div className="col-4">
