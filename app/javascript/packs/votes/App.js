@@ -77,7 +77,7 @@ export default class App extends React.Component {
 
   rankedCandidates() {
     let { ballot } = this.state
-    const ranked = Object.values(ballot).filter(({ rank }) => !!rank)
+    const ranked = _.values(ballot).filter(({ rank }) => !!rank)
     return _.sortBy(ranked, ({ rank }) => rank).map(({ lastName }) => lastName)
   }
 
@@ -118,7 +118,7 @@ export default class App extends React.Component {
         <p>Tap on names in the order of your preference.</p>
         <p>It's ok not to rank all of the candidates.</p>
 
-        {Object.values(ballot).map((c) =>
+        {_.values(ballot).map((c) =>
           <Candidate key={c.lastName} {...c} onRank={this.handleRank.bind(this)} />)}
 
         <div className="row mt-4">

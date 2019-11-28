@@ -32,7 +32,7 @@ export default class App extends React.Component {
     if (!loaded) {
       return <h5>Loading...</h5>
     }
-    const totalVotes = rounds && _.sum(Object.values(_.get(rounds, 0, {})))
+    const totalVotes = rounds && _.sum(_.values(_.get(rounds, 0, {})))
 
     if (!isAdmin && !resultsEnabled) {
       return (
@@ -86,7 +86,7 @@ export default class App extends React.Component {
               <div className="col">
                 <table>
                   <tbody>
-                    {Object.entries(round).map(([candidate, votes]) => (
+                    {_.entries(round).map(([candidate, votes]) => (
                       <tr key={candidate}>
                         <td><strong>{candidate}:</strong></td>
                         <td>{votes}</td>
