@@ -25,7 +25,7 @@ export default class App extends React.Component {
         this.resetBallot()
       }).catch((err) => {
         console.warn("couldnt get candidates")
-        throw error
+        throw err
       }),
 
       // see if this person has already voted, if so they'll redirect to a confirmation page
@@ -67,7 +67,6 @@ export default class App extends React.Component {
       return false
     }
     const text = () => {
-      const numCandidates = this.state.candidates.length;
       if (num == 1) {
         return "You can rank more than 1 candidate. Submit ballot anyway?"
       }
