@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>14th District Forum - Baltimore</title>
+    <title><%= Setting.app_name %> - Baltimore</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
@@ -23,10 +23,10 @@
 
   <body>
     <div class="container">
-      
+
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/">
-          <span class="d-none d-md-inline d-lg-inline d-xl-inline">Baltimore City Council</span> 14th District Forum
+          <span class="d-none d-md-inline d-lg-inline d-xl-inline">Baltimore City Council</span> <%= Setting.app_name %>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

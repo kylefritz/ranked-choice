@@ -1,5 +1,9 @@
 <table style="width: 400px">
   <tr>
+    <td><strong>App Name</strong></td>
+    <td><%= Setting.app_name %></td>
+  </tr>
+  <tr>
     <td><strong>Questions enabled</strong></td>
     <td><%= Setting.questions_enabled %></td>
   </tr>
@@ -7,7 +11,7 @@
     <td><strong>Voting enabled</strong></td>
     <td><%= Setting.voting_enabled %></td>
   </tr>
-    <tr>
+  <tr>
     <td><strong>Results enabled</strong></td>
     <td><%= Setting.results_enabled %></td>
   </tr>
@@ -20,4 +24,3 @@
     <td><%= button_to("Results Mode", '/settings/results') %></td>
   </tr>
 </table>
-

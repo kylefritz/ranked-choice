@@ -7,6 +7,7 @@ class Setting < RailsSettings::Base
   field :voting_enabled, default: false, type: :boolean
   field :results_enabled, default: false, type: :boolean
   field :google_analytics_tracker, default: nil, type: :string
+  field :app_name, default: "12th District Forum", type: :string
 
   def self.questions_mode!
     Setting.questions_enabled = true
