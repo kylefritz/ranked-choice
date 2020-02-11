@@ -1,0 +1,20 @@
+{
+  "files.exclude": {
+    ".bundle": "explorerExcludedFiles",
+    "log/*": "explorerExcludedFiles",
+    "tmp/*": "explorerExcludedFiles",
+    "!/log/.keep": "explorerExcludedFiles",
+    "!/tmp/.keep": "explorerExcludedFiles",
+    "storage/*": "explorerExcludedFiles",
+    "!/storage/.keep": "explorerExcludedFiles",
+    "public/assets": "explorerExcludedFiles",
+    ".byebug_history": "explorerExcludedFiles",
+    "config/master.key": "explorerExcludedFiles",
+    "public/packs": "explorerExcludedFiles",
+    "public/packs-test": "explorerExcludedFiles",
+    "node_modules": "explorerExcludedFiles",
+    "yarn-error.log": "explorerExcludedFiles",
+    "yarn-debug.log*": "explorerExcludedFiles",
+    ".yarn-integrity": "explorerExcludedFiles"
+  }
+}
