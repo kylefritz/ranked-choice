@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
 
   before_action :set_paper_trail_whodunnit # calls user_for_paper_trail
   before_action :set_raven_context
-  after_action :track_action
 
   protected
 
@@ -25,14 +24,10 @@ class ApplicationController < ActionController::Base
 
     logger.info "its ok the user is an admin"
   end
-  
+
   def current_admin_user
     if current_user&.is_admin?
       current_user
     end
-  end
-
-  def track_action
-    ahoy.track "Ran action", request.path_parameters
   end
 end
