@@ -77,7 +77,7 @@ export default class SubmitQuestion extends React.Component {
         </div>
         <div className="form-group">
           <label htmlFor="sq-block">Your Block/Street</label>
-          <input type="text" className="form-control" id="sq-block" placeholder="in the 14th District" ref={this.refBlock} />
+          <input type="text" className="form-control" id="sq-block" ref={this.refBlock} />
         </div>
         <button type="submit" className="btn btn-primary">Submit Question</button>
       </form >
