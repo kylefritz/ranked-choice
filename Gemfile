@@ -10,7 +10,7 @@ gem 'blazer'
 gem 'bootsnap', '>= 1.4.2', require: false # Reduces boot times through caching; required in config/boot.rb
 gem 'bootstrap', '~> 4.3.1' # nice style
 gem 'devise' # for authentication
-gem 'image_processing', '~> 1.2' # Use Active Storage variant
+gem 'image_processing', '~> 1.12' # Use Active Storage variant
 gem 'jbuilder', '~> 2.7' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 gem 'newrelic_rpm' # debugging to new relic
