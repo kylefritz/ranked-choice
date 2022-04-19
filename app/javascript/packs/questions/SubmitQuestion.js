@@ -72,12 +72,12 @@ export default class SubmitQuestion extends React.Component {
           <input type="text" className="form-control" id="sq-text" placeholder="What would you like to ask the candidates?" ref={this.refText} />
         </div>
         <div className="form-group">
-          <label htmlFor="sq-submitted-by">Your Name</label>
+          <label htmlFor="sq-submitted-by">Name</label>
           <input type="text" className="form-control" id="sq-submitted-by" placeholder="What's your name?" ref={this.refName} />
         </div>
         <div className="form-group">
-          <label htmlFor="sq-block">Your Block/Street</label>
-          <input type="text" className="form-control" id="sq-block" ref={this.refBlock} />
+          <label htmlFor="sq-block">Location</label>
+          <input type="text" className="form-control" id="sq-block" ref={this.refBlock} placeholder="Where do you live?"/>
         </div>
         <button type="submit" className="btn btn-primary">Submit Question</button>
       </form >

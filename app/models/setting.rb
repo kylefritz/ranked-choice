@@ -4,6 +4,7 @@ class Setting < RailsSettings::Base
   cache_prefix { "v1" }
 
   field :questions_enabled, default: true, type: :boolean
+  field :voting_visible, default: true, type: :boolean
   field :voting_enabled, default: false, type: :boolean
   field :results_enabled, default: false, type: :boolean
   field :google_analytics_tracker, default: nil, type: :string
@@ -16,12 +17,14 @@ class Setting < RailsSettings::Base
   end
 
   def self.voting_mode!
+    Settings.voting_visible = true
     Setting.questions_enabled = false
     Setting.voting_enabled = true
     Setting.results_enabled = false
   end
 
   def self.results_mode!
+    Settings.voting_visible = true
     Setting.questions_enabled = false
     Setting.voting_enabled = false
     Setting.results_enabled = true

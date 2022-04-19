@@ -40,6 +40,7 @@
                 Questions
               </a>
             </li>
+            <% if Setting.voting_visible %>
             <li class="nav-item">
               <a
                  class="nav-link <%=Setting.voting_enabled ? '' : 'disabled' %>"
@@ -56,6 +57,7 @@
                 Straw-Poll Results
               </a>
             </li>
+            <% end %>
           </ul>
         </div>
       </nav>
