@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
+ruby '3.1.4'
 
 gem 'activeadmin' # admin ui
 gem 'ahoy_matey'
@@ -24,7 +24,12 @@ gem 'sass-rails', '~> 5' # css
 gem 'sentry-raven' # debugging to sentry.io
 gem 'webpacker', '~> 4.0' # compiles javascript
 
+gem 'psych', '< 4' # fix unsafe load issue https://stackoverflow.com/questions/71191685/visit-psych-nodes-alias-unknown-alias-default-psychbadalias
+
 group :development, :test do
+  # newer
+  # gem "debug", ">= 1.0.0" # trigger with `binding.break`
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
