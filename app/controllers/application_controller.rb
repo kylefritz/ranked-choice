@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_raven_context
-    Raven.user_context(id: current_user&.id, email: current_user&.email, is_admin: current_user&.is_admin)
-    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+    Sentry.set_user(id: current_user&.id, email: current_user&.email, is_admin: current_user&.is_admin)
+    # Sentry.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 
   def user_for_paper_trail

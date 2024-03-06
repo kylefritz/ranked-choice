@@ -8,12 +8,10 @@ default: &default
 development:
   <<: *default
   database: ranked_choice
-  host: localhost
 
 test:
   <<: *default
   database: ranked_choice_test
-  host: localhost
 
 production:
   <<: *default
