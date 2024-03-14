@@ -2,9 +2,6 @@
   "name": "app",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.24.0",
-    "@babel/preset-env": "^7.24.0",
-    "@babel/preset-react": "^7.23.3",
     "@sentry/browser": "^5.7.1",
     "ahoy.js": "^0.3.4",
     "axios": "^0.19.0",
@@ -17,7 +14,7 @@
     "webpack": "^5.90.3"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "bun bun.config.js"
   },
   "babel": {
     "presets": [
