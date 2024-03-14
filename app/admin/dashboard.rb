@@ -9,7 +9,7 @@ ActiveAdmin.register_page "Dashboard" do
         column ("Item") { |v| v.item }
         # column ("Item") { |v| link_to v.item, [:admin, v.item] } # Uncomment to display as link
         column ("Type") { |v| v.item_type.underscore.humanize }
-        column ("Modified at") { |v| v.created_at.to_s :long }
+        column ("Modified at") { |v| v.created_at.to_s }
         column ("User") do |v|
           User.find_by(id: v.whodunnit)&.email || "whodunnit: '#{v.whodunnit}'"
         end
