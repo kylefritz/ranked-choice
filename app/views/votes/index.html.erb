@@ -1,6 +1,6 @@
 <% if Setting.voting_enabled %>
   <div id="mount-votes-react-app" />
-  <%= javascript_pack_tag 'votes' %>
+  <%= javascript_include_tag 'votes' %>
 <% else %>
   <h3 class="text-center mt-5 mb-5">Voting is not open</h3>
   <%= render "shared/other_places" %>

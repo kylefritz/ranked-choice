@@ -1,11 +1,14 @@
+const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 const path    = require("path")
 const webpack = require("webpack")
 
 module.exports = {
-  mode: "production",
-  devtool: "source-map",
+  mode,
   entry: {
-    application: "./app/javascript/application.js"
+    application: "./app/javascript/application.js",
+    questions: "./app/javascript/questions.js",
+    results: "./app/javascript/results.js",
+    votes: "./app/javascript/votes.js"
   },
   output: {
     filename: "[name].js",
@@ -26,5 +29,8 @@ module.exports = {
         use: ['babel-loader'],
       },
     ],
+  },
+  optimization: {
+    moduleIds: 'deterministic',
   }
 }
