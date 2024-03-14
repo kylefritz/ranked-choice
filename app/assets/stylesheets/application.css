@@ -1,15 +1,21 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+/* app is mostly design for mobile; don't let it strech out too wide on desktop */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 970px;
+  }
+}
+
+/* based on .lead but smaller font-size */
+.question {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* for ErrorBoundary */
+.stack-trace {
+  white-space: pre;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  font-size: 0.7em;
+  background: white;
+}
