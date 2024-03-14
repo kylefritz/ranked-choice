@@ -9,8 +9,11 @@ Originally for Baltimore 12th city council district candidate forum
 ## Development
 
 ```
+# install bun
+brew tap oven-sh/bun 
+brew install bun
+
 bundle
-yarn install --check-files
 foreman start --procfile=Procfile.dev
 ```
 
