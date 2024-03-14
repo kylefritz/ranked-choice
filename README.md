@@ -6,6 +6,14 @@
 
 Originally for Baltimore 12th city council district candidate forum
 
+## Development
+
+```
+bundle
+yarn install --check-files
+foreman start --procfile=Procfile.dev
+```
+
 ## Tests
 
 There's a lot of debugging info in the tests
