@@ -6,8 +6,6 @@ export default function Voted({ vote }) {
   return (
     <div>
       <h4>You have voted</h4>
-      <p>The real Baltimore City Primary is April 28, 2020.</p>
-      <p>Early voting is April 16 to April 23.</p>
       <hr />
       <h4>You ranked the candidates</h4>
       {ranked.map((lastName, i) => {
