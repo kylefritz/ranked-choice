@@ -1,46 +1,50 @@
-source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+source "https://rubygems.org"
 
-ruby '2.6.5'
+ruby "3.2.3"
 
 gem 'activeadmin' # admin ui
 gem 'ahoy_matey'
-gem 'bcrypt', '~> 3.1.7' # for devise
+gem 'bcrypt', '~> 3.1.7' # for devise; & Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem 'blazer'
-gem 'bootsnap', '>= 1.4.2', require: false # Reduces boot times through caching; required in config/boot.rb
 gem 'bootstrap', '~> 4.3.1' # nice style
 gem 'devise' # for authentication
-gem 'image_processing', '~> 1.2' # Use Active Storage variant
-gem 'jbuilder', '~> 2.7' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 gem 'newrelic_rpm' # debugging to new relic
 gem 'olive_branch' # convert snake_case to camelCase for json
 gem 'paper_trail' # audits
-gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.12' # web/app server
 gem 'rails-settings-cached', "~> 2.0" # app settings stored in database
-gem 'rails', '~> 6.0.0'
-gem 'sass-rails', '~> 5' # css
-gem 'sentry-raven' # debugging to sentry.io
-gem 'webpacker', '~> 4.0' # compiles javascript
+gem 'sentry-ruby' # debugging to sentry.io
+gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
+gem "importmap-rails" # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+gem "jbuilder" # Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem 'jsbundling-rails' # migrate from webpacker
+gem "pg", "~> 1.1" # Use postgresql as the database for Active Record
+gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
+gem "rails", "~> 7.1.3", ">= 7.1.3.2" # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "sprockets-rails" # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem "stimulus-rails" # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+
+# gem "image_processing", "~> 1.2" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+# gem "kredis" # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
+# gem "redis", ">= 4.0.1" # Use Redis adapter to run Action Cable in production
+
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[ mri windows ]
 end
 
 group :development do
-  gem 'web-console', '>= 3.3.0' # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'spring' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "web-console"
+  
+  # gem "rack-mini-profiler" # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
+  
+  # gem "spring" # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
 end
 
 group :test do
-  gem 'capybara', '>= 2.15' # Adds support for Capybara system testing and selenium driver
-  gem 'selenium-webdriver'
-  gem 'webdrivers' # Easy installation and use of web drivers to run system tests with browsers
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem "capybara"
+  gem "selenium-webdriver"
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
